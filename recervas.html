@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservas Restaurante</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .reserva {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin: 10px auto;
+      max-width: 600px;
+    }
+
+    .reserva button {
+      background: #dc3545;
+      margin-top: 10px;
+    }
+
+    .reserva button:hover {
+      background: #c82333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📅 Sistema de Reservas</h1>
+
+  <form id="form-reserva">
+    <input type="text" id="cliente" placeholder="Nombre del cliente" required>
+    <input type="date" id="fecha" required>
+    <input type="time" id="hora" required>
+    <input type="number" id="personas" placeholder="Número de personas" min="1" required>
+    <button type="submit">Agregar Reserva</button>
+  </form>
+
+  <div id="lista-reservas"></div>
+
+  <script>
+    const form = document.getElementById('form-reserva');
+    const lista = document.getElementById('lista-reservas');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const cliente = document.getElementById('cliente').value.trim();
+      const fecha = document.getElementById('fecha').value;
+      const hora = document.getElementById('hora').value;
+      const personas = document.getElementById('personas').value;
+
+      if (!cliente || !fecha || !hora || !personas) return;
+
+      const reserva = document.createElement('div');
+      reserva.classList.add('reserva');
+      reserva.innerHTML = `
+        <p><strong>Cliente:</strong> ${cliente}</p>
+        <p><strong>Fecha:</strong> ${fecha}</p>
+        <p><strong>Hora:</strong> ${hora}</p>
+        <p><strong>Personas:</strong> ${personas}</p>
+        <button onclick="this.parentElement.remove()">Eliminar</button>
+      `;
+
+      lista.appendChild(reserva);
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
